@@ -1,10 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { App } from 'components/App';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <BrowserRouter basename="/learn-lingo">
     <App />
-  </React.StrictMode>
+  </BrowserRouter>
 );

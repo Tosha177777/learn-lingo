@@ -1,0 +1,57 @@
+@import url("/src/components/Header/HeaderClass.scss");
+
+$main-color-black: #121417;
+$dark-yellow: #f4c550;
+$light-yellow: #fbe9ba;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  padding: 0 64px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: $main-color-black;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
