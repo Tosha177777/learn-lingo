@@ -1,0 +1,80 @@
+.headerCont {
+  max-width: 1312px;
+  margin: 20px auto;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -2%;
+}
+
+.logoIcon {
+  margin-right: 12px;
+}
+
+.mainLinks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 28px;
+
+  margin-left: 390px;
+  margin-right: auto;
+}
+
+.navMains {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0%;
+}
+
+.authBtns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.loginBtn {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0%;
+
+  background-color: transparent;
+  border: none;
+}
+
+.registrBtn {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #fff;
+
+  background-color: black;
+  border: none;
+  border-radius: 12px;
+
+  padding: 14px 39px;
+}
