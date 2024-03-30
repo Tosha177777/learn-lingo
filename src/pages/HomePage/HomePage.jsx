@@ -1,6 +1,6 @@
-import React from "react";
-import "./HomePageCls.scss";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
+import './HomePageCls.scss';
 
 const HomePage = () => {
   return (
@@ -9,7 +9,7 @@ const HomePage = () => {
         <div className="mainBox">
           <div className="potentialBox">
             <h1 className="mainTitle">
-              Unlock your potential with the best{" "}
+              Unlock your potential with the best{' '}
               <span className="language">language</span> tutors
             </h1>
             <p className="desrPar">
