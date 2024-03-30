@@ -1,6 +1,14 @@
 .headerCont {
-  max-width: 1312px;
+  max-width: 320px;
+  width: 100%;
   margin: 20px auto;
+
+  @media screen and (min-width: 768px) {
+    max-width: 768px;
+  }
+  @media screen and (min-width: 1440px) {
+    max-width: 1312px;
+  }
 }
 
 .navigation {
@@ -25,13 +33,21 @@
 }
 
 .mainLinks {
-  display: flex;
+  display: none;
   flex-direction: row;
   align-items: center;
   gap: 28px;
 
-  margin-left: 390px;
   margin-right: auto;
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+  }
+  @media screen and (min-width: 1440px) {
+    margin-left: 390px;
+  }
 }
 
 .navMains {
@@ -42,10 +58,16 @@
 }
 
 .authBtns {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 16px;
+  visibility: hidden;
+
+  @media screen and (min-width: 768px) {
+    visibility: visible;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
 }
 
 .loginBtn {
@@ -77,4 +99,12 @@
   border-radius: 12px;
 
   padding: 14px 39px;
+}
+
+.burgerVisible {
+  visibility: visible;
+
+  @media screen and (min-width: 768px) {
+    visibility: hidden;
+  }
 }
