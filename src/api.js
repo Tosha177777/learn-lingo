@@ -17,3 +17,13 @@ export const getAllTeachers = async db => {
     return null;
   }
 };
+
+//----------------Auth--------------------//
+
+// export const registration = async auth => {
+//   try {
+//     const data = await createUserWithEmailAndPassword(auth,);
+//   } catch (error) {
+//     console.log('error: ', error);
+//   }
+// };

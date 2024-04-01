@@ -12,6 +12,7 @@ const TeachersPage = () => {
   const dispatch = useDispatch();
 
   const [allTeachers, setAllTeachers] = useState([]);
+  const [isReadMoreList, setIsReadMoreList] = useState([]);
 
   useEffect(() => {
     const foo = async () => {
@@ -26,6 +27,15 @@ const TeachersPage = () => {
     };
     foo();
   }, [dispatch]);
+
+  const toggleReadMore = avatar => {
+    setIsReadMoreList(prevState => {
+      const newState = [...prevState];
+      newState[avatar] = !newState[avatar];
+      return newState;
+    });
+  };
+
   return (
     <section className="teacherSection">
       <div className="container teacherBox">
@@ -44,6 +54,7 @@ const TeachersPage = () => {
                 price_per_hour,
                 rating,
                 surname,
+                reviews,
               }) => {
                 return (
                   <li key={nanoid()} className="teacherItem">
@@ -51,7 +62,6 @@ const TeachersPage = () => {
                       <img
                         src={avatar_url}
                         alt="avatar"
-                        width={'96px'}
                         className="avatarImg"
                       />
                     </div>
@@ -106,9 +116,47 @@ const TeachersPage = () => {
                           <span className="speciality">{conditions}</span>
                         </p>
                       </div>
-                      <button type="button" className="readMoreBtn">
-                        Read more
-                      </button>
+                      {!isReadMoreList[avatar_url] && (
+                        <button
+                          type="button"
+                          className="readMoreBtn"
+                          onClick={() => toggleReadMore(avatar_url)}
+                        >
+                          Read more
+                        </button>
+                      )}
+                      {isReadMoreList[avatar_url] && (
+                        <div className="reviewerBox">
+                          <p className="expirience">{experience}</p>
+                          <ul className="reviewList">
+                            {reviews.map((reviewer, index) => {
+                              return (
+                                <li key={index} className="reviewItem">
+                                  <p className="languages reviewerName">
+                                    {reviewer.reviewer_name}
+                                  </p>
+                                  <span className="reviewerRatingSpan">
+                                    <Star className="start" />{' '}
+                                    <span className="languages lessonsOnlineText">
+                                      {rating}{' '}
+                                    </span>
+                                  </span>
+                                  <p className=" languages specialityPar speciality">
+                                    {reviewer.comment}
+                                  </p>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      )}
+                      <ul className="levelsList">
+                        {levels.map((level, index) => (
+                          <li key={index} className="levelsItem">
+                            <span className="levelsItemText">&#35;{level}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </li>
                 );

@@ -1,11 +1,9 @@
 import { initializeApp } from 'firebase/app';
-// import { getFirestore } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';
-
-const API_KEY = 'AIzaSyAxsDI5dBRpeIz7Zton6vO0AB99JKiwlbc';
+// import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: API_KEY,
+  apiKey: 'AIzaSyAxsDI5dBRpeIz7Zton6vO0AB99JKiwlbc',
   authDomain: 'learn-lingo-cfe9e.firebaseapp.com',
   databaseURL: 'https://learn-lingo-cfe9e-default-rtdb.firebaseio.com',
   projectId: 'learn-lingo-cfe9e',
@@ -17,3 +15,5 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase(app);
+
+// export const authFB = getAuth(app);
