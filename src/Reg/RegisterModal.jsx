@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import * as yup from 'yup';
 import { Field, Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { registerThunk } from '../redux/operations';
+import { app } from '../firebase';
 
 const SignupSchema = yup.object().shape({
   name: yup.string().min(2, 'Too Short!').required('Required'),
@@ -13,6 +16,8 @@ const SignupSchema = yup.object().shape({
 });
 
 const RegisterModal = ({ onClose }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.key === 'Escape') {
@@ -48,9 +53,12 @@ const RegisterModal = ({ onClose }) => {
             password: '',
           }}
           validationSchema={SignupSchema}
-          onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
+          onSubmit={async (values, { resetForm }) => {
+            const authFB = app;
+
+            await dispatch(registerThunk({ authFB, formData: values }));
+
+            resetForm();
           }}
         >
           {({ errors, touched }) => (

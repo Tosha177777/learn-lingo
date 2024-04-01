@@ -20,7 +20,7 @@ import { catalogReducer } from './reducer';
 // };
 
 const catalogConfig = {
-  key: 'catalog',
+  key: 'auth',
   version: 1,
   storage,
 };
