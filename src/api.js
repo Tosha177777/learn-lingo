@@ -19,11 +19,3 @@ export const getAllTeachers = async db => {
 };
 
 //----------------Auth--------------------//
-
-// export const registration = async auth => {
-//   try {
-//     const data = await createUserWithEmailAndPassword(auth,);
-//   } catch (error) {
-//     console.log('error: ', error);
-//   }
-// };

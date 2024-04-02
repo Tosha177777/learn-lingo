@@ -77,7 +77,7 @@
   color: #8a8a89;
 
   @media screen and (min-width: 768px) {
-    margin-right: 30px;
+    // margin-right: 30px;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
@@ -197,6 +197,10 @@
 
 .reviewerBox {
   margin-bottom: 32px;
+
+  @media screen and (min-width: 768px) and (max-width: 1439px) {
+    max-width: 440px;
+  }
 }
 
 .reviewList {

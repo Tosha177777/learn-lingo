@@ -2,6 +2,10 @@ import React, { useEffect } from 'react';
 import * as yup from 'yup';
 import './LoginStyle.scss';
 import { Field, Form, Formik } from 'formik';
+import { app } from '../../firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoginThunk } from '../../redux/operations';
+import { selectAuthError } from '../../redux/selector';
 
 const SignupSchema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Required'),
@@ -13,6 +17,9 @@ const SignupSchema = yup.object().shape({
 });
 
 const LoginModal = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const error = useSelector(selectAuthError);
+
   useEffect(() => {
     const handleKeyDown = e => {
       if (e.key === 'Escape') {
@@ -46,9 +53,16 @@ const LoginModal = ({ onClose }) => {
             password: '',
           }}
           validationSchema={SignupSchema}
-          onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
+          onSubmit={async (values, { resetForm }) => {
+            const authFB = app;
+
+            const userData = await dispatch(
+              LoginThunk({ authFB, formData: values })
+            );
+            if (!userData.error) {
+              resetForm();
+              onClose();
+            }
           }}
         >
           {({ errors, touched }) => (
@@ -59,7 +73,9 @@ const LoginModal = ({ onClose }) => {
                 className="field"
                 placeholder="Email"
               />
-              {errors.email && touched.email ? <div>{errors.email}</div> : null}
+              {errors.email && touched.email ? (
+                <div style={{ color: 'red' }}>{errors.email}</div>
+              ) : null}
               <Field
                 name="password"
                 type="password"
@@ -68,7 +84,7 @@ const LoginModal = ({ onClose }) => {
                 pattern=".{7,}"
               />
               {errors.password && touched.password ? (
-                <div>{errors.password}</div>
+                <div style={{ color: 'red' }}>{errors.password}</div>
               ) : null}
               <button type="submit" className="logBtn">
                 Log In
@@ -76,6 +92,7 @@ const LoginModal = ({ onClose }) => {
             </Form>
           )}
         </Formik>
+        {error && <h1>{error}</h1>}
       </div>
     </div>
   );

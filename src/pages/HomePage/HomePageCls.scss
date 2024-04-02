@@ -121,9 +121,12 @@
 }
 
 .potentialBox {
-  padding: 98px 108px 98px 64px;
+  padding: 24px;
   background-color: #f8f8f8;
   border-radius: 30px;
+  @media screen and (min-width: 768px) {
+    padding: 98px 108px 98px 64px;
+  }
 }
 
 .mainTitle {
@@ -165,7 +168,8 @@
 
 .getStarted {
   display: inline-flex;
-  padding: 16px 88px;
+  padding: 8px 44px;
+  text-align: center;
 
   font-size: 18px;
   font-weight: 700;
@@ -175,6 +179,10 @@
   background-color: #f4c550;
   border-radius: 12px;
   transition: background-color 0.5s ease;
+
+  @media screen and (min-width: 768px) {
+    padding: 16px 88px;
+  }
 }
 
 .getStarted:hover {
@@ -206,30 +214,47 @@
 .numberList {
   display: flex;
   flex-direction: row;
-  gap: 100px;
+  gap: 8px;
   justify-content: center;
+  align-items: center;
 
   border: 1px dashed #f4c550;
   border-radius: 30px;
 
   padding: 40px 0;
+
+  @media screen and (min-width: 1440px) {
+    gap: 100px;
+  }
 }
 
 .numberItems {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 4px;
   align-items: center;
+
+  @media screen and (min-width: 1440px) {
+    gap: 16px;
+  }
 }
 
 .numbers {
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 500;
-  line-height: 32px;
+  line-height: 24px;
   letter-spacing: -2%;
+
+  @media screen and (min-width: 1440px) {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -2%;
+  }
 }
 
 .advantages {
+  display: none;
   max-width: 96px;
 
   color: #121417b3;
@@ -237,4 +262,8 @@
   font-weight: 400;
   line-height: 18px;
   letter-spacing: -2%;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
 }

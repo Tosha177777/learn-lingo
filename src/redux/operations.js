@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getAllTeachers } from '../api';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 
 const getAllTeachersThunk = createAsyncThunk(
   'teachers/getAll',
@@ -27,6 +31,24 @@ export const registerThunk = createAsyncThunk(
         formData.password
       );
       const user = regData.user;
+      return { token: user.refreshToken, user: { email: user.email } };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const LoginThunk = createAsyncThunk(
+  'auth/login',
+  async ({ authFB, formData }, thunkAPI) => {
+    try {
+      const auth = getAuth(authFB);
+      const logData = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      const user = logData.user;
       return { token: user.refreshToken, user: { email: user.email } };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
