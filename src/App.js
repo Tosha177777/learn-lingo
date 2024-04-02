@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage/HomePage';
 import TeachersPage from './pages/TeachersPage/TeachersPage';
 import { useSelector } from 'react-redux';
 import { selectAuthError } from './redux/selector';
-import PrivateRoute from 'components/RestrictedRoute/RestrictedRoute';
 
 const appRoutes = [
   {
