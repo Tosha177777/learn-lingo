@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllTeachersThunk, registerThunk } from './operations.js';
+import {
+  LoginThunk,
+  getAllTeachersThunk,
+  registerThunk,
+} from './operations.js';
 
 const INITIAL_STATE = {
   allTeachers: [],
@@ -21,6 +25,12 @@ const catalogSlice = createSlice({
         state.allTeachers = action.payload;
       })
       .addCase(registerThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+        state.isSignedIn = true;
+      })
+      .addCase(LoginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.token = action.payload.token;
         state.user = action.payload.user;

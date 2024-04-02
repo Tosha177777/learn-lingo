@@ -1,0 +1,24 @@
+.styledPopover {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+
+  gap: 16px;
+}
+
+.styledBtn {
+  display: flex;
+  align-items: center;
+
+  background-color: inherit;
+  border: none;
+
+  padding: 0;
+}
+
+.styledText {
+  color: black;
+  font-size: 16px;
+
+  margin-left: 8px;
+}

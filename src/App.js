@@ -1,20 +1,25 @@
-import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header/Header";
-import HomePage from "./pages/HomePage/HomePage";
-import TeachersPage from "./pages/TeachersPage/TeachersPage";
+import { Route, Routes } from 'react-router-dom';
+import Header from './components/Header/Header';
+import HomePage from './pages/HomePage/HomePage';
+import TeachersPage from './pages/TeachersPage/TeachersPage';
+import { useSelector } from 'react-redux';
+import { selectAuthError } from './redux/selector';
+import PrivateRoute from 'components/RestrictedRoute/RestrictedRoute';
 
 const appRoutes = [
   {
-    path: "/",
+    path: '/',
     element: <HomePage />,
   },
   {
-    path: "/teachers",
+    path: '/teachers',
     element: <TeachersPage />,
   },
 ];
 
 function App() {
+  const error = useSelector(selectAuthError);
+
   return (
     <>
       <Header />
@@ -24,6 +29,7 @@ function App() {
             <Route key={path} path={path} element={element} />
           ))}
         </Routes>
+        {error && <h1>{error.message}</h1>}
       </main>
     </>
   );
