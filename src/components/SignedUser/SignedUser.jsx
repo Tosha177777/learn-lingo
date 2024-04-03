@@ -37,7 +37,7 @@ const SignedUser = () => {
               }}
               PaperProps={{
                 style: {
-                  width: '118px',
+                  width: '150px',
                   height: '88px',
 
                   marginTop: '2px',

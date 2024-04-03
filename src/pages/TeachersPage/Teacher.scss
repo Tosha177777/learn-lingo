@@ -1,5 +1,9 @@
 .teacherSection {
   background-color: #f8f8f8;
+  min-width: 100vw;
+  min-height: 100vh;
+
+  padding: 20px;
 }
 
 .teacherBox {
@@ -15,12 +19,13 @@
 }
 
 .teacherItem {
+  position: relative;
+
   display: flex;
   flex-direction: row;
   gap: 16px;
 
   width: 100%;
-  // height: 328px;
   padding: 10px;
 
   background-color: white;
@@ -91,7 +96,7 @@
 .lessonsOnlineList {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 2px;
 
   @media screen and (min-width: 1440px) {
     gap: 32px;
@@ -105,7 +110,7 @@
 }
 
 .book {
-  margin-right: 8px;
+  // margin-right: 8px;
 }
 
 .lessonsOnlineText {
@@ -218,4 +223,27 @@
   align-items: center;
 
   margin-bottom: 16px;
+}
+
+.heartBtn {
+  position: absolute;
+
+  top: 10px;
+  right: 10px;
+
+  background-color: inherit;
+  border: none;
+  stroke: #000;
+  fill: none;
+  transition: transform 2s ease;
+  @media screen and (min-width: 768px) {
+    top: 24px;
+    right: 24px;
+  }
+}
+
+.heartBtn.active {
+  fill: #f4c550;
+  stroke: #f4c550;
+  transform-origin: center;
 }

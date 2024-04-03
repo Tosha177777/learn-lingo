@@ -17,8 +17,15 @@
 }
 
 .styledText {
+  font-family: 'Roboto';
   color: black;
   font-size: 16px;
 
   margin-left: 8px;
+}
+
+.fav {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
 }

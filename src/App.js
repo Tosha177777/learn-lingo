@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage/HomePage';
 import TeachersPage from './pages/TeachersPage/TeachersPage';
 import { useSelector } from 'react-redux';
 import { selectAuthError } from './redux/selector';
+import FavPage from './pages/FavPage/FavPage';
+import PrivateRoute from './components/RestrictedRoute/RestrictedRoute';
 
 const appRoutes = [
   {
@@ -13,6 +15,14 @@ const appRoutes = [
   {
     path: '/teachers',
     element: <TeachersPage />,
+  },
+  {
+    path: '/favourites',
+    element: (
+      <PrivateRoute>
+        <FavPage />
+      </PrivateRoute>
+    ),
   },
 ];
 
