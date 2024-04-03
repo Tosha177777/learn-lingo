@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   LoginThunk,
+  LogoutThunk,
   getAllTeachersThunk,
   registerThunk,
 } from './operations.js';
 
 const INITIAL_STATE = {
+  favs: [],
   allTeachers: [],
   user: {
     email: null,
@@ -18,6 +20,18 @@ const INITIAL_STATE = {
 const catalogSlice = createSlice({
   name: 'teachers',
   initialState: INITIAL_STATE,
+  reducers: {
+    toggleFavourite: (state, action) => {
+      const avatar_url = action.payload;
+      console.log('avatar_url: ', avatar_url);
+      const index = state.favs.findIndex(fav => fav === avatar_url);
+      if (index !== -1) {
+        state.favs = state.favs.filter(fav => fav !== avatar_url);
+      } else {
+        state.favs.push(action.payload);
+      }
+    },
+  },
   extraReducers: builder =>
     builder
       .addCase(getAllTeachersThunk.fulfilled, (state, action) => {
@@ -35,6 +49,9 @@ const catalogSlice = createSlice({
         state.token = action.payload.token;
         state.user = action.payload.user;
         state.isSignedIn = true;
+      })
+      .addCase(LogoutThunk.fulfilled, () => {
+        return INITIAL_STATE;
       })
 
       .addMatcher(
@@ -54,3 +71,5 @@ const catalogSlice = createSlice({
 });
 
 export const catalogReducer = catalogSlice.reducer;
+
+export const { toggleFavourite } = catalogSlice.actions;

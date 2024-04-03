@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 const getAllTeachersThunk = createAsyncThunk(
@@ -48,8 +49,21 @@ export const LoginThunk = createAsyncThunk(
         formData.email,
         formData.password
       );
+
       const user = logData.user;
       return { token: user.refreshToken, user: { email: user.email } };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const LogoutThunk = createAsyncThunk(
+  'auth/logout',
+  async (authFB, thunkAPI) => {
+    try {
+      await signOut(authFB);
+      return;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

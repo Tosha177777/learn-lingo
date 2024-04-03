@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
 import './HeaderClass.scss';
 import { ReactComponent as Logo } from '../../icons/logo.svg';
 import { ReactComponent as Login } from '../../icons/login.svg';
@@ -9,6 +8,7 @@ import RegisterModal from 'components/Reg/RegisterModal';
 import { useSelector } from 'react-redux';
 import { selectAuthIsSignedIn } from '../../redux/selector';
 import SignedUser from '../SignedUser/SignedUser';
+import Burger from 'components/Burger/Burger';
 
 const Header = () => {
   const [isOpenedLog, setIsOpenedLog] = useState(false);
@@ -52,6 +52,7 @@ const Header = () => {
               </button>
             </span>
           )}
+          <Burger />
         </nav>
       </div>
       {isOpenedLog && <LoginModal onClose={onLoginToggleModal} />}

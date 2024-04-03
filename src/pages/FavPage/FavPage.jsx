@@ -1,34 +1,27 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
 
+import '../TeachersPage/Teacher.scss';
 import { ReactComponent as Book } from '../../icons/book.svg';
 import { ReactComponent as Star } from '../../icons/star.svg';
 import { ReactComponent as Heart } from '../../icons/heart.svg';
-import './Teacher.scss';
-import { db } from '../../firebase.js';
 import { getAllTeachersThunk } from '../../redux/operations.js';
-import {
-  selectAuthFavourites,
-  selectAuthIsSignedIn,
-} from '../../redux/selector';
-import LoginModal from 'components/Login/LoginModal';
+import { selectAuthFavourites } from '../../redux/selector';
 import { toggleFavourite } from '../../redux/reducer';
+import { db } from '../../firebase.js';
 
-const TeachersPage = () => {
+const FavPage = () => {
   const dispatch = useDispatch();
-  const isSigned = useSelector(selectAuthIsSignedIn);
   const favourites = useSelector(selectAuthFavourites);
 
   const [allTeachers, setAllTeachers] = useState([]);
   const [isReadMoreList, setIsReadMoreList] = useState([]);
-  const [isOpenedLog, setIsOpenedLog] = useState(false);
 
   useEffect(() => {
     const foo = async () => {
       try {
         const { payload } = await dispatch(getAllTeachersThunk(db));
-        console.log('payload: ', payload);
         setAllTeachers(payload);
         return payload;
       } catch (err) {
@@ -46,20 +39,20 @@ const TeachersPage = () => {
     });
   };
 
-  const onLoginToggleModal = () => {
-    setIsOpenedLog(!isOpenedLog);
-  };
-
   const onFavClick = data => {
     dispatch(toggleFavourite(data));
   };
+
+  const favArr = allTeachers.filter(teacher =>
+    favourites.includes(teacher.avatar_url)
+  );
 
   return (
     <section className="teacherSection">
       <div className="container teacherBox">
         <ul className="teacherList">
-          {allTeachers &&
-            allTeachers.map(
+          {favArr &&
+            favArr.map(
               ({
                 avatar_url,
                 conditions,
@@ -176,31 +169,23 @@ const TeachersPage = () => {
                         ))}
                       </ul>
                     </div>
-                    {isSigned ? (
-                      // <button>
-                      <Heart
-                        onClick={() => onFavClick(avatar_url)}
-                        className={
-                          favourites.some(teacher => teacher === avatar_url)
-                            ? `heartBtn active`
-                            : `heartBtn`
-                        }
-                      />
-                    ) : (
-                      // </button>
-                      <button className="heartBtn" onClick={onLoginToggleModal}>
-                        <Heart />
-                      </button>
-                    )}
+
+                    <Heart
+                      onClick={() => onFavClick(avatar_url)}
+                      className={
+                        favourites.some(teacher => teacher === avatar_url)
+                          ? `heartBtn active`
+                          : `heartBtn`
+                      }
+                    />
                   </li>
                 );
               }
             )}
         </ul>
       </div>
-      {isOpenedLog && <LoginModal onClose={onLoginToggleModal} />}
     </section>
   );
 };
 
-export default TeachersPage;
+export default FavPage;

@@ -13,3 +13,7 @@ export const selectAuthIsSignedIn = createSelector(
   selectAuth,
   auth => auth.isSignedIn
 );
+export const selectAuthFavourites = createSelector(
+  selectAuth,
+  auth => auth.favs
+);
