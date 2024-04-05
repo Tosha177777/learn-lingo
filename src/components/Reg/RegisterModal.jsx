@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { registerThunk } from '../../redux/operations';
 import { app } from '../../firebase';
+
+import { ReactComponent as Slashed } from '../../icons/slashed.svg';
+import { ReactComponent as Eye } from '../../icons/eye.svg';
 
 const SignupSchema = yup.object().shape({
   name: yup.string().min(2, 'Too Short!').required('Required'),
@@ -17,6 +20,8 @@ const SignupSchema = yup.object().shape({
 
 const RegisterModal = ({ onClose }) => {
   const dispatch = useDispatch();
+
+  const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = e => {
@@ -65,23 +70,40 @@ const RegisterModal = ({ onClose }) => {
           {({ errors, touched }) => (
             <Form className="form">
               <Field name="name" className="field" placeholder="Name" />
-              {errors.name && touched.name ? <div>{errors.name}</div> : null}
+              {errors.name && touched.name ? (
+                <div style={{ color: 'red' }}>{errors.name}</div>
+              ) : null}
               <Field
                 name="email"
                 type="email"
                 className="field"
                 placeholder="Email"
               />
-              {errors.email && touched.email ? <div>{errors.email}</div> : null}
-              <Field
-                name="password"
-                type="password"
-                className="field"
-                placeholder="Password"
-                pattern=".{7,}"
-              />
+              {errors.email && touched.email ? (
+                <div style={{ color: 'red' }}>{errors.email}</div>
+              ) : null}
+              <label style={{ position: 'relative' }}>
+                <Field
+                  name="password"
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  className="field"
+                  placeholder="Password"
+                  pattern=".{7,}"
+                />
+                {isPasswordVisible ? (
+                  <Eye
+                    className="eyes"
+                    onClick={() => setPasswordVisibility(!isPasswordVisible)}
+                  />
+                ) : (
+                  <Slashed
+                    className="eyes"
+                    onClick={() => setPasswordVisibility(!isPasswordVisible)}
+                  />
+                )}{' '}
+              </label>
               {errors.password && touched.password ? (
-                <div>{errors.password}</div>
+                <div style={{ color: 'red' }}>{errors.password}</div>
               ) : null}
               <button type="submit" className="logBtn">
                 Sign Up

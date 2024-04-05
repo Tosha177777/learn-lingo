@@ -1,0 +1,73 @@
+.form {
+  gap: 0;
+  margin-top: 20px;
+}
+
+.labelBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-bottom: 40px;
+
+  @media screen and (min-width: 768px) {
+    gap: 16px;
+  }
+}
+
+.label {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.reasonSpan {
+  color: #121417;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.logBtn {
+  margin-top: 22px;
+}
+
+.trialWelcome {
+  margin-bottom: 20px;
+}
+
+.yourTeacherBox {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+
+  margin-bottom: 24px;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 40px;
+  }
+}
+
+.teacherPhoto {
+  width: 44px;
+  border-radius: 50%;
+}
+
+.yourTeacher {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+
+  color: #8a8a89;
+}
+
+.teacherName {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+
+  margin-top: 4px;
+}

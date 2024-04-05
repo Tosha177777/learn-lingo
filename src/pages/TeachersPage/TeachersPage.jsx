@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 
+import { ReactComponent as Online } from '../../icons/online.svg';
 import { ReactComponent as Book } from '../../icons/book.svg';
 import { ReactComponent as Star } from '../../icons/star.svg';
 import { ReactComponent as Heart } from '../../icons/heart.svg';
@@ -14,6 +15,7 @@ import {
 } from '../../redux/selector';
 import LoginModal from 'components/Login/LoginModal';
 import { toggleFavourite } from '../../redux/reducer';
+import TrialModal from 'components/TrialModal/TrialModal';
 
 const TeachersPage = () => {
   const dispatch = useDispatch();
@@ -23,12 +25,13 @@ const TeachersPage = () => {
   const [allTeachers, setAllTeachers] = useState([]);
   const [isReadMoreList, setIsReadMoreList] = useState([]);
   const [isOpenedLog, setIsOpenedLog] = useState(false);
+  const [isTrialOpened, setIsTrialOpened] = useState(false);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     const foo = async () => {
       try {
         const { payload } = await dispatch(getAllTeachersThunk(db));
-        console.log('payload: ', payload);
         setAllTeachers(payload);
         return payload;
       } catch (err) {
@@ -44,6 +47,11 @@ const TeachersPage = () => {
       newState[avatar] = !newState[avatar];
       return newState;
     });
+  };
+
+  const onTrialToggle = teacherData => {
+    setIsTrialOpened(!isTrialOpened);
+    setData(teacherData);
   };
 
   const onLoginToggleModal = () => {
@@ -81,6 +89,13 @@ const TeachersPage = () => {
                         src={avatar_url}
                         alt="avatar"
                         className="avatarImg"
+                      />
+                      <Online
+                        style={{
+                          position: 'absolute',
+                          top: '19px',
+                          right: '23px',
+                        }}
                       />
                     </div>
                     <div className="aboutBox">
@@ -175,9 +190,18 @@ const TeachersPage = () => {
                           </li>
                         ))}
                       </ul>
+                      {isReadMoreList[avatar_url] && (
+                        <button
+                          className="logBtn trial"
+                          onClick={() =>
+                            onTrialToggle({ avatar_url, name, surname })
+                          }
+                        >
+                          Book trial lesson
+                        </button>
+                      )}
                     </div>
                     {isSigned ? (
-                      // <button>
                       <Heart
                         onClick={() => onFavClick(avatar_url)}
                         className={
@@ -187,7 +211,6 @@ const TeachersPage = () => {
                         }
                       />
                     ) : (
-                      // </button>
                       <button className="heartBtn" onClick={onLoginToggleModal}>
                         <Heart />
                       </button>
@@ -199,6 +222,7 @@ const TeachersPage = () => {
         </ul>
       </div>
       {isOpenedLog && <LoginModal onClose={onLoginToggleModal} />}
+      {isTrialOpened && <TrialModal data={data} onClose={onTrialToggle} />}
     </section>
   );
 };

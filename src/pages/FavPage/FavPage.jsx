@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import '../TeachersPage/Teacher.scss';
 import { ReactComponent as Book } from '../../icons/book.svg';
+import { ReactComponent as Online } from '../../icons/online.svg';
 import { ReactComponent as Star } from '../../icons/star.svg';
 import { ReactComponent as Heart } from '../../icons/heart.svg';
 import { getAllTeachersThunk } from '../../redux/operations.js';
 import { selectAuthFavourites } from '../../redux/selector';
 import { toggleFavourite } from '../../redux/reducer';
 import { db } from '../../firebase.js';
+import TrialModal from 'components/TrialModal/TrialModal';
 
 const FavPage = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,8 @@ const FavPage = () => {
 
   const [allTeachers, setAllTeachers] = useState([]);
   const [isReadMoreList, setIsReadMoreList] = useState([]);
+  const [isTrialOpened, setIsTrialOpened] = useState(false);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     const foo = async () => {
@@ -37,6 +41,11 @@ const FavPage = () => {
       newState[avatar] = !newState[avatar];
       return newState;
     });
+  };
+
+  const onTrialToggle = teacherData => {
+    setIsTrialOpened(!isTrialOpened);
+    setData(teacherData);
   };
 
   const onFavClick = data => {
@@ -74,6 +83,13 @@ const FavPage = () => {
                         src={avatar_url}
                         alt="avatar"
                         className="avatarImg"
+                      />
+                      <Online
+                        style={{
+                          position: 'absolute',
+                          top: '19px',
+                          right: '23px',
+                        }}
                       />
                     </div>
                     <div className="aboutBox">
@@ -168,6 +184,16 @@ const FavPage = () => {
                           </li>
                         ))}
                       </ul>
+                      {isReadMoreList[avatar_url] && (
+                        <button
+                          className="logBtn trial"
+                          onClick={() =>
+                            onTrialToggle({ avatar_url, name, surname })
+                          }
+                        >
+                          Book trial lesson
+                        </button>
+                      )}
                     </div>
 
                     <Heart
@@ -184,6 +210,7 @@ const FavPage = () => {
             )}
         </ul>
       </div>
+      {isTrialOpened && <TrialModal data={data} onClose={onTrialToggle} />}
     </section>
   );
 };

@@ -18,6 +18,14 @@ const PopUp = () => {
 
   return (
     <div className="styledPopover">
+      <Link to={`/`} className="fav hide">
+        <Star />
+        <span className="styledText fav">Home</span>
+      </Link>
+      <Link to={`/teachers`} className="fav hide">
+        <Star />
+        <span className="styledText fav">Teachers</span>
+      </Link>
       <Link to={`/favourites`} className="fav">
         <Star />
         <span className="styledText fav">Favourites</span>

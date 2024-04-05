@@ -52,7 +52,9 @@ const Header = () => {
               </button>
             </span>
           )}
-          <Burger />
+          {!auth && (
+            <Burger onLog={onLoginToggleModal} onReg={onRegToggleModal} />
+          )}
         </nav>
       </div>
       {isOpenedLog && <LoginModal onClose={onLoginToggleModal} />}

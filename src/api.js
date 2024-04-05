@@ -4,7 +4,6 @@ export const getAllTeachers = async db => {
   try {
     const dataRef = ref(db, '/');
     const snapshot = await get(dataRef);
-
     if (snapshot.exists()) {
       const data = snapshot.val();
       return data;
