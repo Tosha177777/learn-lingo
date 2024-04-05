@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import './LoginStyle.scss';
 import { Field, Form, Formik } from 'formik';
 import { app } from '../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { ReactComponent as Slashed } from '../../icons/slashed.svg';
+import { ReactComponent as Eye } from '../../icons/eye.svg';
 import { LoginThunk } from '../../redux/operations';
 import { selectAuthError } from '../../redux/selector';
 
@@ -19,6 +22,8 @@ const SignupSchema = yup.object().shape({
 const LoginModal = ({ onClose }) => {
   const dispatch = useDispatch();
   const error = useSelector(selectAuthError);
+
+  const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = e => {
@@ -76,23 +81,37 @@ const LoginModal = ({ onClose }) => {
               {errors.email && touched.email ? (
                 <div style={{ color: 'red' }}>{errors.email}</div>
               ) : null}
-              <Field
-                name="password"
-                type="password"
-                className="field"
-                placeholder="Password"
-                pattern=".{7,}"
-              />
+              <label style={{ position: 'relative' }}>
+                <Field
+                  name="password"
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  className="field"
+                  placeholder="Password"
+                  pattern=".{7,}"
+                />
+                {isPasswordVisible ? (
+                  <Eye
+                    className="eyes"
+                    onClick={() => setPasswordVisibility(!isPasswordVisible)}
+                  />
+                ) : (
+                  <Slashed
+                    className="eyes"
+                    onClick={() => setPasswordVisibility(!isPasswordVisible)}
+                  />
+                )}
+              </label>
               {errors.password && touched.password ? (
                 <div style={{ color: 'red' }}>{errors.password}</div>
               ) : null}
+
               <button type="submit" className="logBtn">
                 Log In
               </button>
             </Form>
           )}
         </Formik>
-        {error && <h1>{error}</h1>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
     </div>
   );

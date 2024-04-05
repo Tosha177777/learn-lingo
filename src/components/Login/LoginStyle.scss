@@ -37,12 +37,18 @@
 }
 
 .loginTitle {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 500;
-  line-height: 48px;
+  line-height: 40px;
   letter-spacing: -2%;
 
   margin-bottom: 20px;
+
+  @media (min-width: 768px) {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 48px;
+  }
 }
 
 .welcome {
@@ -107,4 +113,16 @@
 .logBtn:hover {
   background-color: #ffdc86;
   transition: background-color 0.5s ease;
+}
+
+.trial {
+  margin-top: 32px;
+  padding: 16px 48px;
+}
+
+.eyes {
+  position: absolute;
+  top: 17px;
+  right: 18px;
+  cursor: pointer;
 }

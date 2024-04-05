@@ -29,3 +29,9 @@
   flex-direction: row;
   align-items: center;
 }
+
+.hide {
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
