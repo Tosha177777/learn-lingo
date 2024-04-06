@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllTeachers } from '../api';
+import { getAllTeachers, getStartTeachers } from '../api';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -12,6 +12,18 @@ const getAllTeachersThunk = createAsyncThunk(
   async (db, thunkAPI) => {
     try {
       const response = await getAllTeachers(db);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getStartTeachersThunk = createAsyncThunk(
+  'teachers/getStart',
+  async (db, thunkAPI) => {
+    try {
+      const response = await getStartTeachers(db);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
