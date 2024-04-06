@@ -3,6 +3,7 @@ import {
   LoginThunk,
   LogoutThunk,
   getAllTeachersThunk,
+  getStartTeachersThunk,
   registerThunk,
 } from './operations.js';
 
@@ -34,6 +35,10 @@ const catalogSlice = createSlice({
   extraReducers: builder =>
     builder
       .addCase(getAllTeachersThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allTeachers = action.payload;
+      })
+      .addCase(getStartTeachersThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.allTeachers = action.payload;
       })

@@ -8,7 +8,10 @@ import { ReactComponent as Star } from '../../icons/star.svg';
 import { ReactComponent as Heart } from '../../icons/heart.svg';
 import './Teacher.scss';
 import { db } from '../../firebase.js';
-import { getAllTeachersThunk } from '../../redux/operations.js';
+import {
+  getAllTeachersThunk,
+  getStartTeachersThunk,
+} from '../../redux/operations.js';
 import {
   selectAuthFavourites,
   selectAuthIsSignedIn,
@@ -27,19 +30,43 @@ const TeachersPage = () => {
   const [isOpenedLog, setIsOpenedLog] = useState(false);
   const [isTrialOpened, setIsTrialOpened] = useState(false);
   const [data, setData] = useState({});
+  const [hasMoreData, setHasMoreData] = useState(true);
 
   useEffect(() => {
-    const foo = async () => {
+    const fetchTeachers = async () => {
       try {
-        const { payload } = await dispatch(getAllTeachersThunk(db));
+        const { payload } = await dispatch(getStartTeachersThunk(db));
         setAllTeachers(payload);
+
         return payload;
       } catch (err) {
         console.log(err);
       }
     };
-    foo();
-  }, [dispatch]);
+
+    fetchTeachers();
+    if (isTrialOpened) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [dispatch, isTrialOpened]);
+
+  const loadMoreTeachers = async () => {
+    setHasMoreData(!hasMoreData);
+    try {
+      const { payload } = await dispatch(getAllTeachersThunk(db));
+      setAllTeachers(payload);
+
+      return payload;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const toggleReadMore = avatar => {
     setIsReadMoreList(prevState => {
@@ -220,6 +247,12 @@ const TeachersPage = () => {
               }
             )}
         </ul>
+
+        {hasMoreData && (
+          <button className=" logBtn loadMoreBtn" onClick={loadMoreTeachers}>
+            Load More
+          </button>
+        )}
       </div>
       {isOpenedLog && <LoginModal onClose={onLoginToggleModal} />}
       {isTrialOpened && <TrialModal data={data} onClose={onTrialToggle} />}

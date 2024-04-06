@@ -17,3 +17,7 @@ export const selectAuthFavourites = createSelector(
   selectAuth,
   auth => auth.favs
 );
+export const selectAllTeachers = createSelector(
+  selectAuth,
+  auth => auth.allTeachers
+);
