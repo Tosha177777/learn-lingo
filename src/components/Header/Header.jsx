@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './HeaderClass.scss';
 import { ReactComponent as Logo } from '../../icons/logo.svg';
@@ -16,6 +16,18 @@ const Header = () => {
 
   const auth = useSelector(selectAuthIsSignedIn);
 
+  useEffect(() => {
+    if (isOpenedReg || isOpenedLog) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpenedReg, isOpenedLog]);
+
   const onRegToggleModal = () => {
     setIsOpenedReg(!isOpenedReg);
   };
@@ -23,6 +35,15 @@ const Header = () => {
   const onLoginToggleModal = () => {
     setIsOpenedLog(!isOpenedLog);
   };
+
+  const currentPage = window.location.pathname;
+  const menuItems = document.querySelectorAll('.navMains');
+
+  menuItems.forEach(item => {
+    if (item.getAttribute('href') === currentPage) {
+      item.classList.add('active');
+    }
+  });
 
   return (
     <header className="headerCont">

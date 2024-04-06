@@ -56,7 +56,16 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
+  transition: color 1s ease;
   letter-spacing: 0%;
+}
+
+.navMains.active {
+  color: #ffdc86;
+}
+
+.navMains:hover {
+  color: #ffdc86;
 }
 
 .authBtns {
@@ -86,6 +95,12 @@
 
   background-color: transparent;
   border: none;
+
+  transition: color 1s ease;
+}
+
+.loginBtn:hover {
+  color: #ffdc86;
 }
 
 .registrBtn {
@@ -101,6 +116,11 @@
   border-radius: 12px;
 
   padding: 14px 39px;
+  transition: color 1s ease;
+}
+
+.registrBtn:hover {
+  color: #ffdc86;
 }
 
 .burgerVisible {

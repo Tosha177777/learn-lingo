@@ -64,7 +64,6 @@ const TrialModal = ({ data, onClose }) => {
           }}
           validationSchema={schema}
           onSubmit={(values, { resetForm }) => {
-            console.log('values: ', values);
             resetForm();
             onClose();
           }}

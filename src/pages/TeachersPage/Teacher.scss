@@ -240,7 +240,11 @@
   border: none;
   stroke: #000;
   fill: none;
+
   transition: transform 2s ease;
+
+  cursor: pointer;
+
   @media screen and (min-width: 768px) {
     top: 24px;
     right: 24px;
