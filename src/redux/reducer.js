@@ -23,7 +23,6 @@ const catalogSlice = createSlice({
   reducers: {
     toggleFavourite: (state, action) => {
       const avatar_url = action.payload;
-      console.log('avatar_url: ', avatar_url);
       const index = state.favs.findIndex(fav => fav === avatar_url);
       if (index !== -1) {
         state.favs = state.favs.filter(fav => fav !== avatar_url);
