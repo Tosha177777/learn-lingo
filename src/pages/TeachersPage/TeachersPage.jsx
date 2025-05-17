@@ -9,8 +9,9 @@ import { ReactComponent as Heart } from '../../icons/heart.svg';
 import './Teacher.scss';
 import { db } from '../../firebase.js';
 import {
-  getAllTeachersThunk,
+  // getAllTeachersThunk,
   getStartTeachersThunk,
+  loadMoreTeachersThunk,
 } from '../../redux/operations.js';
 import {
   selectAuthFavourites,
@@ -25,6 +26,7 @@ const TeachersPage = () => {
   const isSigned = useSelector(selectAuthIsSignedIn);
   const favourites = useSelector(selectAuthFavourites);
 
+  const [lastKey, setLastKey] = useState(null);
   const [allTeachers, setAllTeachers] = useState([]);
   const [isReadMoreList, setIsReadMoreList] = useState([]);
   const [isOpenedLog, setIsOpenedLog] = useState(false);
@@ -36,8 +38,9 @@ const TeachersPage = () => {
     const fetchTeachers = async () => {
       try {
         const { payload } = await dispatch(getStartTeachersThunk(db));
-        setAllTeachers(payload);
-
+        console.log('payload: ', payload);
+        setAllTeachers(payload.teachers);
+        setLastKey(payload.lastKey);
         return payload;
       } catch (err) {
         console.log(err);
@@ -56,13 +59,30 @@ const TeachersPage = () => {
     };
   }, [dispatch, isTrialOpened]);
 
-  const loadMoreTeachers = async () => {
-    setHasMoreData(!hasMoreData);
-    try {
-      const { payload } = await dispatch(getAllTeachersThunk(db));
-      setAllTeachers(payload);
+  // const loadMoreTeachers = async () => {
+  //   setHasMoreData(!hasMoreData);
+  //   try {
+  //     const { payload } = await dispatch(getAllTeachersThunk(db));
+  //     setAllTeachers(payload);
+  //     console.log('payload: ', payload);
 
-      return payload;
+  //     return payload;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const loadMoreTeachers = async () => {
+    if (!lastKey) return;
+
+    try {
+      const { payload } = await dispatch(
+        loadMoreTeachersThunk({ db, lastKey })
+      );
+      setAllTeachers(prev => [...prev, ...payload.teachers]);
+      setLastKey(payload.lastKey);
+      setHasMoreData(payload.lastKey !== null);
+      console.log('payloadInMore: ', payload);
     } catch (err) {
       console.log(err);
     }
